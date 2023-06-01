@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>London Waste Incinerators</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/London_Ward_CityMerged_1.js"></script>
+        <script src="data/LonodonIncinerators_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[51.19305561874763,-0.6494925963637644],[51.780271490219825,0.5409356042564863]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleMaps_0');
+        map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleMaps_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_GoogleMaps_0;
+        map.addLayer(layer_GoogleMaps_0);
+        function pop_London_Ward_CityMerged_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NAME</th>\
+                        <td>' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GSS_CODE</th>\
+                        <td>' + (feature.properties['GSS_CODE'] !== null ? autolinker.link(feature.properties['GSS_CODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DISTRICT</th>\
+                        <td>' + (feature.properties['DISTRICT'] !== null ? autolinker.link(feature.properties['DISTRICT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LAGSSCODE</th>\
+                        <td>' + (feature.properties['LAGSSCODE'] !== null ? autolinker.link(feature.properties['LAGSSCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HECTARES</th>\
+                        <td>' + (feature.properties['HECTARES'] !== null ? autolinker.link(feature.properties['HECTARES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NONLD_AREA</th>\
+                        <td>' + (feature.properties['NONLD_AREA'] !== null ? autolinker.link(feature.properties['NONLD_AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IMD_SCORE</th>\
+                        <td>' + (feature.properties['IMD_SCORE'] !== null ? autolinker.link(feature.properties['IMD_SCORE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_London_Ward_CityMerged_1_0(feature) {
+            if (feature.properties['IMD_SCORE'] >= 5.000000 && feature.properties['IMD_SCORE'] <= 12.766000 ) {
+                return {
+                pane: 'pane_London_Ward_CityMerged_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.7040000000000001)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(147,196,125,0.7040000000000001)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['IMD_SCORE'] >= 12.766000 && feature.properties['IMD_SCORE'] <= 17.828000 ) {
+                return {
+                pane: 'pane_London_Ward_CityMerged_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.7040000000000001)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,181,167,0.7040000000000001)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['IMD_SCORE'] >= 17.828000 && feature.properties['IMD_SCORE'] <= 23.862000 ) {
+                return {
+                pane: 'pane_London_Ward_CityMerged_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.7040000000000001)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,130,132,0.7040000000000001)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['IMD_SCORE'] >= 23.862000 && feature.properties['IMD_SCORE'] <= 29.494000 ) {
+                return {
+                pane: 'pane_London_Ward_CityMerged_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.7040000000000001)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,65,68,0.7040000000000001)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['IMD_SCORE'] >= 29.494000 && feature.properties['IMD_SCORE'] <= 46.570000 ) {
+                return {
+                pane: 'pane_London_Ward_CityMerged_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.7040000000000001)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,22,0.7040000000000001)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_London_Ward_CityMerged_1');
+        map.getPane('pane_London_Ward_CityMerged_1').style.zIndex = 401;
+        map.getPane('pane_London_Ward_CityMerged_1').style['mix-blend-mode'] = 'multiply';
+        var layer_London_Ward_CityMerged_1 = new L.geoJson(json_London_Ward_CityMerged_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_London_Ward_CityMerged_1',
+            layerName: 'layer_London_Ward_CityMerged_1',
+            pane: 'pane_London_Ward_CityMerged_1',
+            onEachFeature: pop_London_Ward_CityMerged_1,
+            style: style_London_Ward_CityMerged_1_0,
+        });
+        bounds_group.addLayer(layer_London_Ward_CityMerged_1);
+        map.addLayer(layer_London_Ward_CityMerged_1);
+        function pop_LonodonIncinerators_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Address</th>\
+                        <td>' + (feature.properties['Address'] !== null ? autolinker.link(feature.properties['Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LonodonIncinerators_2_0() {
+            return {
+                pane: 'pane_LonodonIncinerators_2',
+                radius: 18.0,
+                opacity: 1,
+                color: 'rgba(246,250,36,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,234,1,1.0)',
+                interactive: true,
+            }
+        }
+        function style_LonodonIncinerators_2_1() {
+            return {
+                pane: 'pane_LonodonIncinerators_2',
+                radius: 7.36364,
+                opacity: 1,
+                color: 'rgba(250,176,124,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,234,1,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_LonodonIncinerators_2');
+        map.getPane('pane_LonodonIncinerators_2').style.zIndex = 402;
+        map.getPane('pane_LonodonIncinerators_2').style['mix-blend-mode'] = 'normal';
+        var layer_LonodonIncinerators_2 = new L.geoJson.multiStyle(json_LonodonIncinerators_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LonodonIncinerators_2',
+            layerName: 'layer_LonodonIncinerators_2',
+            pane: 'pane_LonodonIncinerators_2',
+            onEachFeature: pop_LonodonIncinerators_2,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_LonodonIncinerators_2_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_LonodonIncinerators_2_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_LonodonIncinerators_2);
+        map.addLayer(layer_LonodonIncinerators_2);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>London Waste Incinerators</h2>';
+            };
+            title.addTo(map);
+        setBounds();
+        resetLabels([layer_London_Ward_CityMerged_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_London_Ward_CityMerged_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_London_Ward_CityMerged_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_London_Ward_CityMerged_1]);
+        });
+        </script>
+    </body>
+</html>
